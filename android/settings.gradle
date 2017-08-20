@@ -1,0 +1,3 @@
+rootProject.name = 'camara_deputados'
+
+include ':app'
