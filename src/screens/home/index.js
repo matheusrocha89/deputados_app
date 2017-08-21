@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { connect } from 'react-redux';
+import { Text, View } from 'react-native';
 
 
 class Home extends Component {
@@ -8,11 +9,19 @@ class Home extends Component {
   };
 
   render() {
+    const { listOfDeputies } = this.props;
     return (
-      <Text>Hello</Text>
+      <View>
+        {listOfDeputies.map(deputy => <Text key={deputy}>{deputy}</Text>)}
+        <Text>Hello</Text>
+      </View>
     );
   }
 }
 
+const mapStateToProps = ({ deputies: { listOfDeputies} }) => ({
+  listOfDeputies
+});
 
-export default Home;
+
+export default connect(mapStateToProps)(Home);
