@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 
 import { getDeputies } from '../../actions';
 
 
 class Home extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Deputados',
   };
 
   componentWillMount() {
@@ -17,9 +18,19 @@ class Home extends Component {
   render() {
     const { listOfDeputies } = this.props;
     return (
-      <View>
-        {listOfDeputies.map(deputy => <Text key={deputy.id}>{deputy.nome} - {deputy.siglaPartido}</Text>)}
-      </View>
+      <ScrollView>
+        <List>
+          {listOfDeputies.map((deputy) => (
+            <ListItem
+              roundAvatar
+              avatar={{uri: deputy.urlFoto.replace('http', 'https')}}
+              key={deputy.id}
+              title={deputy.nome}
+              subtitle={deputy.siglaPartido}
+            />
+          ))}
+        </List>
+      </ScrollView>
     );
   }
 }
