@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-import { API_BASE_URI } from '../../config';
+import { API_BASE_URL } from '../../config';
+
 
 
 class ApiClient {
   constructor() {
     this.clientInstance = axios.create({
-      baseURL: API_BASE_URI,
+      baseURL: API_BASE_URL,
       timeout: 5000,
     });
   }
@@ -16,7 +17,7 @@ class ApiClient {
   }
 }
 
-const clientApi = new ApiClient();
+const apiClient = new ApiClient();
 
 
-export default clientApi;
+export default apiClient;
