@@ -3,26 +3,28 @@ import { connect } from 'react-redux';
 import { FlatList, View, ActivityIndicator } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
-import { getDeputies, getMoreDeputies } from '../../actions';
+import { getDeputies, getMoreDeputies } from '../actions';
 
+class DeputiesScreen extends Component {
 
-const loadingStyle = {
-  paddingVertical: 20,
-  borderTopWidth: 1,
-  borderTopColor: '#DDDDDD',
-};
-
-class Home extends Component {
-  static navigationOptions = {
-    title: 'Deputados',
-  };
 
   componentWillMount() {
     this.props.getDeputies();
   }
 
+  getDetails = (deputy) => {
+    this.props.navigation.navigate('DeputyDetailsScreen', {
+      deputy: deputy
+    });
+  };
+
   renderLoader = () => {
     const { loading } = this.props;
+    const loadingStyle = {
+      paddingVertical: 20,
+      borderTopWidth: 1,
+      borderTopColor: '#DDDDDD',
+    };
 
     if (!loading) return null;
 
@@ -53,9 +55,10 @@ class Home extends Component {
           renderItem={({ item }) => (
             <ListItem
               roundAvatar
-              avatar={{ uri: item.urlFoto.replace('http', 'https')}}
+              avatar={{uri: item.urlFoto.replace('http', 'https')}}
               title={item.nome}
-              subtitle={item.siglaPartido}
+              subtitle={item.siglaPartido+'-'+item.siglaUf}
+              onPress={() => this.getDetails(item)}
             />
           )}
         />
@@ -70,5 +73,4 @@ const mapStateToProps = ({ deputies: { listOfDeputies, pagination, loading } }) 
   loading,
 });
 
-
-export default connect(mapStateToProps, { getDeputies, getMoreDeputies })(Home);
+export default connect(mapStateToProps, { getDeputies, getMoreDeputies })(DeputiesScreen);
