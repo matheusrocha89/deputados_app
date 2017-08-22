@@ -1,6 +1,7 @@
 import {
   GET_DEPUTIES,
   GET_DEPUTIES_SUCCESS,
+  GET_MORE_DEPUTIES_SUCCESS,
 } from '../../actions/types';
 
 
@@ -18,6 +19,12 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ...action.payload,
       };
+    case GET_MORE_DEPUTIES_SUCCESS:
+      return {
+        ...state,
+        listOfDeputies: [...state.listOfDeputies, ...action.payload.listOfDeputies],
+        pagination: action.payload.pagination,
+      }
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FlatList, View, ActivityIndicator } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
-import { getDeputies } from '../../actions';
+import { getDeputies, getMoreDeputies } from '../../actions';
 
 
 class Home extends Component {
@@ -27,7 +27,10 @@ class Home extends Component {
   );
 
   handleLoadMore = () => {
-    // Call action to get more deputies
+    const { pagination, getMoreDeputies } = this.props;
+    if (pagination.next) {
+      getMoreDeputies(pagination.next);
+    }
   }
 
   render() {
@@ -60,4 +63,4 @@ const mapStateToProps = ({ deputies: { listOfDeputies, pagination } }) => ({
 });
 
 
-export default connect(mapStateToProps, { getDeputies })(Home);
+export default connect(mapStateToProps, { getDeputies, getMoreDeputies })(Home);

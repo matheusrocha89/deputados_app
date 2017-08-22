@@ -1,26 +1,47 @@
 import {
   GET_DEPUTIES,
   GET_DEPUTIES_SUCCESS,
+  GET_MORE_DEPUTIES,
+  GET_MORE_DEPUTIES_SUCCESS,
 } from '../types';
+import { API_BASE_URL } from '../../config';
 
 import apiClient from '../../clients/api';
 
 
-const getDeputiesSuccess = (dispatch, data) => {
+const mapLinkToPaginationObject = (links) => {
+  const pagination = {};
+  links.forEach((link) => {
+    pagination[link.rel] = link.href.replace(API_BASE_URL, '/');
+  });
+  return pagination;
+};
+
+const getDeputiesSuccess = (dispatch, data, type) => {
+  const pagination = mapLinkToPaginationObject(data.links);
   dispatch({
-    type: GET_DEPUTIES_SUCCESS,
+    type,
     payload: {
       listOfDeputies: data.dados,
-      pagination: data.links,
+      pagination,
     },
   });
+};
+
+export const getMoreDeputies = (url) => (dispatch) => {
+  dispatch({ type: GET_MORE_DEPUTIES });
+  apiClient.get(url)
+    .then(({ data }) => {
+      getDeputiesSuccess(dispatch, data, GET_MORE_DEPUTIES_SUCCESS);
+    })
+    .catch(err => console.log(err));
 };
 
 export const getDeputies = () => (dispatch) => {
   dispatch({ type: GET_DEPUTIES });
   apiClient.get('/deputados?itens=25')
     .then(({ data }) => {
-      getDeputiesSuccess(dispatch, data);
+      getDeputiesSuccess(dispatch, data, GET_DEPUTIES_SUCCESS);
     })
     .catch(err => console.log(err));
 };
