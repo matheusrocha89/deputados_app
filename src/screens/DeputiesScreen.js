@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
-import { getDeputies } from '../../actions';
+import { getDeputies } from '../actions';
 
-
-class Home extends Component {
-  static navigationOptions = {
-    title: 'Deputados',
-  };
+class DeputiesScreen extends Component {
 
   componentWillMount() {
     this.props.getDeputies();
   }
+
+  getDetails = (deputy) => {
+    this.props.navigation.navigate('DeputyDetailsScreen', {
+      deputy: deputy
+    });
+  };
 
   render() {
     const { listOfDeputies } = this.props;
@@ -26,7 +28,8 @@ class Home extends Component {
               avatar={{uri: deputy.urlFoto.replace('http', 'https')}}
               key={deputy.id}
               title={deputy.nome}
-              subtitle={deputy.siglaPartido}
+              subtitle={deputy.siglaPartido+'-'+deputy.siglaUf}
+              onPress={() => this.getDetails(deputy)}
             />
           ))}
         </List>
@@ -39,5 +42,4 @@ const mapStateToProps = ({ deputies: { listOfDeputies} }) => ({
   listOfDeputies
 });
 
-
-export default connect(mapStateToProps, { getDeputies })(Home);
+export default connect(mapStateToProps, { getDeputies })(DeputiesScreen);
