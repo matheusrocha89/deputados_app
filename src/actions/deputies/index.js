@@ -16,16 +16,11 @@ const getDeputiesSuccess = (dispatch, data) => {
   });
 };
 
-const getDeputies = () => (dispatch) => {
+export const getDeputies = () => (dispatch) => {
   dispatch({ type: GET_DEPUTIES });
   apiClient.get('/deputados?itens=25')
     .then(({ data }) => {
       getDeputiesSuccess(dispatch, data);
     })
     .catch(err => console.log(err));
-};
-
-
-export default {
-  getDeputies,
 };
