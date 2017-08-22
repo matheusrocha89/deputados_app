@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
 import { getDeputies, getMoreDeputies } from '../actions';
@@ -20,16 +20,18 @@ class DeputiesScreen extends Component {
 
   renderLoader = () => {
     const { loading } = this.props;
-    const loadingStyle = {
-      paddingVertical: 20,
-      borderTopWidth: 1,
-      borderTopColor: '#DDDDDD',
-    };
-
     if (!loading) return null;
 
+    const styles = StyleSheet.create({
+      loadingStyle: {
+        paddingVertical: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#DDDDDD',
+      },
+    });
+
     return (
-      <View style={loadingStyle}>
+      <View style={styles.loadingStyle}>
         <ActivityIndicator animating size="large" />
       </View>
     );
