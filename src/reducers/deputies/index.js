@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   loading: false,
   listOfDeputies: [],
-  pagination: [],
+  pagination: {},
   currentDeputy: {},
 };
 
