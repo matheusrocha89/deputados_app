@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
   listOfDeputies: [],
+  pagination: [],
   currentDeputy: {},
 };
 
@@ -13,7 +14,10 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_DEPUTIES_SUCCESS:
-      return { ...state, listOfDeputies: action.payload };
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }

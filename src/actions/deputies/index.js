@@ -6,19 +6,21 @@ import {
 import apiClient from '../../clients/api';
 
 
-const getDeputiesSuccess = (dispatch, listOfDeputies) => {
+const getDeputiesSuccess = (dispatch, data) => {
   dispatch({
     type: GET_DEPUTIES_SUCCESS,
-    payload: listOfDeputies,
+    payload: {
+      listOfDeputies: data.dados,
+      pagination: data.links,
+    },
   });
 };
 
 const getDeputies = () => (dispatch) => {
   dispatch({ type: GET_DEPUTIES });
-  apiClient.get('/deputados')
+  apiClient.get('/deputados?itens=25')
     .then(({ data }) => {
-      const { dados } = data;
-      getDeputiesSuccess(dispatch, dados);
+      getDeputiesSuccess(dispatch, data);
     })
     .catch(err => console.log(err));
 };
