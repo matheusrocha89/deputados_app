@@ -28,7 +28,7 @@ const getDeputiesSuccess = (dispatch, data, type) => {
   });
 };
 
-export const getMoreDeputies = (url) => (dispatch) => {
+export const getMoreDeputies = url => (dispatch) => {
   dispatch({ type: GET_MORE_DEPUTIES });
   apiClient.get(url)
     .then(({ data }) => {

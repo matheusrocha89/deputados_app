@@ -5,11 +5,10 @@ import { Icon } from 'react-native-elements';
 import DeputiesScreen from '../screens/DeputiesScreen';
 import DeputyDetailsScreen from '../screens/DeputyDetailsScreen';
 
+
 export const MenuStack = StackNavigator({
   MenuScreen: {
     screen: DeputiesScreen,
-    navigationOptions: ({ navigation }) => ({
-    }),
   },
   RatingScreen: {
     screen: DeputiesScreen,
@@ -19,11 +18,13 @@ export const MenuStack = StackNavigator({
   },
 });
 
+
 export const Tabs = TabNavigator({
   MenuScreen: {
     screen: MenuStack,
     navigationOptions: {
       tabBarLabel: 'Menu',
+      // eslint-disable-next-line react/prop-types
       tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,
     },
   },
@@ -31,10 +32,12 @@ export const Tabs = TabNavigator({
     screen: DeputiesScreen,
     navigationOptions: {
       tabBarLabel: 'Sair',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+      // eslint-disable-next-line react/prop-types
+      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />,
     },
   },
 });
+
 
 export const Root = StackNavigator({
   DeputiesScreen: {

@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   loading: false,
   listOfDeputies: [],
-  pagination: [],
+  pagination: {},
   currentDeputy: {},
 };
 
@@ -32,7 +32,7 @@ export default (state = INITIAL_STATE, action) => {
         listOfDeputies: [...state.listOfDeputies, ...action.payload.listOfDeputies],
         pagination: action.payload.pagination,
         loading: false,
-      }
+      };
     default:
       return state;
   }
