@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../config';
 import apiClient from '../../clients/api';
 
 
-const mapLinkToPaginationObject = (links) => {
+const mapLinksToPaginationObject = (links) => {
   const pagination = {};
   links.forEach((link) => {
     pagination[link.rel] = link.href.replace(API_BASE_URL, '/');
@@ -18,7 +18,7 @@ const mapLinkToPaginationObject = (links) => {
 };
 
 const getDeputiesSuccess = (dispatch, data, type) => {
-  const pagination = mapLinkToPaginationObject(data.links);
+  const pagination = mapLinksToPaginationObject(data.links);
   dispatch({
     type,
     payload: {
