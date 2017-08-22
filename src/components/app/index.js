@@ -4,23 +4,16 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { StackNavigator } from 'react-navigation';
-
-import Home from '../../screens/home';
+import { Root, Tabs } from '../../config/router';
 import reducers from '../../reducers';
-
-
-const AppNavigation = StackNavigator({
-  Home: { screen: Home },
-});
 
 const App = () => {
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
   return (
     <Provider store={store}>
-      <AppNavigation />
+			<Root />
     </Provider>
   );
 };
-
 
 AppRegistry.registerComponent('camara_deputados', () => App);
