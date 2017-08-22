@@ -6,6 +6,12 @@ import { List, ListItem } from 'react-native-elements';
 import { getDeputies, getMoreDeputies } from '../../actions';
 
 
+const loadingStyle = {
+  paddingVertical: 20,
+  borderTopWidth: 1,
+  borderTopColor: '#DDDDDD',
+};
+
 class Home extends Component {
   static navigationOptions = {
     title: 'Deputados',
@@ -15,16 +21,17 @@ class Home extends Component {
     this.props.getDeputies();
   }
 
-  renderFooter = () => (
-    // TODO: Create a loading state to show or not the load component
-    <View style={{
-      paddingVertical: 20,
-      borderTopWidth: 1,
-      borderTopColor: '#DDDDDD',
-    }}>
-      <ActivityIndicator animating size="large" />
-    </View>
-  );
+  renderLoader = () => {
+    const { loading } = this.props;
+
+    if (!loading) return null;
+
+    return (
+      <View style={loadingStyle}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
 
   handleLoadMore = () => {
     const { pagination, getMoreDeputies } = this.props;
@@ -40,9 +47,9 @@ class Home extends Component {
         <FlatList
           data={listOfDeputies}
           keyExtractor={(item) => item.id}
-          ListFooterComponent={this.renderFooter}
+          ListFooterComponent={this.renderLoader}
           onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={1}
           renderItem={({ item }) => (
             <ListItem
               roundAvatar
@@ -57,9 +64,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ deputies: { listOfDeputies, pagination } }) => ({
+const mapStateToProps = ({ deputies: { listOfDeputies, pagination, loading } }) => ({
   listOfDeputies,
   pagination,
+  loading,
 });
 
 
