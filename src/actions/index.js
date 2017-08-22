@@ -1,6 +1,2 @@
-import deputies from './deputies';
+export { getDeputies } from './deputies';
 
-
-export default {
-  ...deputies,
-};

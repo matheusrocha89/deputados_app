@@ -13,7 +13,7 @@ const getDeputiesSuccess = (dispatch, listOfDeputies) => {
   });
 };
 
-const getDeputies = () => (dispatch) => {
+export const getDeputies = () => (dispatch) => {
   dispatch({ type: GET_DEPUTIES });
   apiClient.get('/deputados')
     .then(({ data }) => {
@@ -21,9 +21,4 @@ const getDeputies = () => (dispatch) => {
       getDeputiesSuccess(dispatch, dados);
     })
     .catch(err => console.log(err));
-};
-
-
-export default {
-  getDeputies,
 };
