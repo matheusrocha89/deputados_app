@@ -1,1 +1,5 @@
-export { getDeputies, getMoreDeputies } from './deputies';
+export {
+  getDeputies,
+  getMoreDeputies,
+  getDeputyDetails,
+} from './deputies';
