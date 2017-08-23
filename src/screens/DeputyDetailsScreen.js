@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
+
+import { getDeputyDetails } from '../actions';
 
 
 const styles = StyleSheet.create({
@@ -67,5 +70,9 @@ DeputyDetailsScreen.defaultProps = {
   navigation: {},
 };
 
+const mapStateToProps = ({ deputies: { currentDeputy, loading } }) => ({
+  currentDeputy,
+  loading,
+});
 
-export default DeputyDetailsScreen;
+export default connect(mapStateToProps, { getDeputyDetails })(DeputyDetailsScreen);
