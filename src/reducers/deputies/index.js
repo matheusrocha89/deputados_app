@@ -18,10 +18,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case GET_DEPUTIES || GET_DEPUTY_DETAILS:
-      return { ...state, loading: true };
-
-    case GET_MORE_DEPUTIES:
+    case GET_DEPUTIES || GET_DEPUTY_DETAILS || GET_MORE_DEPUTIES:
       return { ...state, loading: true };
 
     case GET_DEPUTIES_SUCCESS:
