@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 
 import { getDeputyDetails } from '../actions';
+import DeputyPersonalDataCard from '../components/deputy-personal-data-card';
 
 
 const styles = StyleSheet.create({
@@ -27,21 +28,41 @@ const styles = StyleSheet.create({
   situation: {
     padding: 10,
   },
+  loadingStyle: {
+    paddingVertical: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#DDDDDD',
+  },
 });
 
 
 class DeputyDetailsScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    currentDeputy: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     getDeputyDetails: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     navigation: {},
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { id } = this.props.navigation.state.params.deputy;
     this.props.getDeputyDetails(id);
+  }
+
+  renderPersonalData() {
+    const { loading, currentDeputy } = this.props;
+    if (loading) {
+      return (
+        <View style={styles.loadingStyle}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    }
+
+    return <DeputyPersonalDataCard deputy={currentDeputy} />;
   }
 
   render() {
@@ -72,6 +93,9 @@ class DeputyDetailsScreen extends Component {
           <Text style={styles.name}>{deputy.nome}</Text>
           <Text style={styles.politicalParty}>{`${deputy.siglaPartido}-${deputy.siglaUf}`}</Text>
           <Text style={styles.situation}>Situação: Exercício</Text>
+        </View>
+        <View>
+          {this.renderPersonalData()}
         </View>
       </View>
     );
