@@ -2,21 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import { Avatar, Button } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 
 import { getDeputyDetails } from '../actions';
 import DeputyPersonalDataCard from '../components/deputy-personal-data-card';
 
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height: 100,
-  },
   bodyContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 20,
   },
   name: {
     fontSize: 20,
@@ -67,22 +63,8 @@ class DeputyDetailsScreen extends Component {
 
   render() {
     const { deputy } = this.props.navigation.state.params;
-    const { goBack } = this.props.navigation;
     return (
       <View>
-        <View>
-          <View style={styles.headerContainer}>
-            <View style={{ flex: 1 }}>
-              <Button
-                raised
-                icon={{ name: 'arrow-back' }}
-                title="Voltar"
-                onPress={() => goBack()}
-                style={{ margin: 5 }}
-              />
-            </View>
-          </View>
-        </View>
         <View style={styles.bodyContainer}>
           <Avatar
             xlarge
