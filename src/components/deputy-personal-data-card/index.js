@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import isEmpty from 'lodash/isEmpty';
+import moment from 'moment';
 
 
 const DeputyPersonalDataCard = ({ deputy }) => {
   if (isEmpty(deputy)) return null;
 
   const { ultimoStatus } = deputy;
+  const birthDate = moment(deputy.dataNascimento).format('DD/MM/YYYY');
   return (
     <Card title="Dados Pessoais">
       <Text>Nome Civil: {deputy.nomeCivil}</Text>
@@ -17,7 +19,7 @@ const DeputyPersonalDataCard = ({ deputy }) => {
       {deputy.cpf ? (
         <Text> CPF: {deputy.cpf}</Text>
       ) : null}
-      <Text>Data Nascimento: {deputy.dataNascimento}</Text>
+      <Text>Data Nascimento: {birthDate}</Text>
       {deputy.escolaridade ? (
         <Text>Escolaridade: {deputy.escolaridade}</Text>
       ) : null}
