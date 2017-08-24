@@ -27,6 +27,10 @@ class DeputiesScreen extends Component {
     navigation: {},
   };
 
+  static navigationOptions = {
+    title: 'Deputados',
+  };
+
   componentWillMount() {
     this.props.getDeputies();
   }

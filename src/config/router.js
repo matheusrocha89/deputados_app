@@ -47,6 +47,10 @@ export const Root = StackNavigator({
     screen: DeputyDetailsScreen,
   },
 }, {
-  mode: 'modal',
-  headerMode: 'none',
+  navigationOptions: {
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#598143',
+    },
+  },
 });
