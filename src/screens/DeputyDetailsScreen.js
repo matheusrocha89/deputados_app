@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   name: {
+    paddingTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
   },
