@@ -20,9 +20,7 @@ const DeputyPersonalDataCard = ({ deputy }) => {
         <Text> CPF: {deputy.cpf}</Text>
       ) : null}
       <Text>Data Nascimento: {birthDate}</Text>
-      {deputy.escolaridade ? (
-        <Text>Escolaridade: {deputy.escolaridade}</Text>
-      ) : null}
+      <Text>Escolaridade: {deputy.escolaridade ? deputy.escolaridade : 'Não informada'}</Text>
     </Card>
   );
 };
