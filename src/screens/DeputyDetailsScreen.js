@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, ScrollView } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import isEmpty from 'lodash/isEmpty';
 
 import { getDeputyDetails } from '../actions';
 import DeputyPersonalDataCard from '../components/deputy-personal-data-card';
+import DeputyOfficeDataCard from '../components/deputy-office-data-card';
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   bodyContainer: {
+    paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 20,
+    flex: 1,
   },
   name: {
     paddingTop: 10,
@@ -62,10 +68,17 @@ class DeputyDetailsScreen extends Component {
     return <DeputyPersonalDataCard deputy={currentDeputy} />;
   }
 
+  renderOfficeData() {
+    const { loading, currentDeputy } = this.props;
+    if (loading || isEmpty(currentDeputy)) return null;
+
+    return <DeputyOfficeDataCard office={currentDeputy.ultimoStatus.gabinete} />;
+  }
+
   render() {
     const { deputy } = this.props.navigation.state.params;
     return (
-      <View>
+      <ScrollView style={styles.container}>
         <View style={styles.bodyContainer}>
           <Avatar
             xlarge
@@ -79,8 +92,9 @@ class DeputyDetailsScreen extends Component {
         </View>
         <View>
           {this.renderPersonalData()}
+          {this.renderOfficeData()}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
