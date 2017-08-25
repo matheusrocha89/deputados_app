@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text, View, Linking, StyleSheet } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
 import { isEmpty, compact } from 'lodash';
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
 });
 
 class DeputySocialDataCard extends Component {
+  static propTypes = {
+    deputy: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  };
+
   mapSocialNetworks() {
     const { deputy } = this.props;
 
