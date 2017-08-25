@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getDeputyDetails } from '../actions';
 import DeputyPersonalDataCard from '../components/deputy-personal-data-card';
 import DeputyOfficeDataCard from '../components/deputy-office-data-card';
+import DeputySocialDataCard from '../components/deputy-social-data-card';
 
 
 const styles = StyleSheet.create({
@@ -77,6 +78,7 @@ class DeputyDetailsScreen extends Component {
 
   render() {
     const { deputy } = this.props.navigation.state.params;
+    const { currentDeputy } = this.props;
     return (
       <ScrollView style={styles.container}>
         <View style={styles.bodyContainer}>
@@ -93,6 +95,7 @@ class DeputyDetailsScreen extends Component {
         <View>
           {this.renderPersonalData()}
           {this.renderOfficeData()}
+          <DeputySocialDataCard deputy={currentDeputy} />
         </View>
       </ScrollView>
     );
