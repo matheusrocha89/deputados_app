@@ -49,15 +49,24 @@ export const getDeputies = () => (dispatch) => {
 };
 
 export function getDeputyDetails(id) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({ type: GET_DEPUTY_DETAILS });
-    apiClient.get(`/deputados/${id}`)
-      .then(({ data }) => {
-        dispatch({
-          type: GET_DEPUTY_DETAILS_SUCCESS,
-          payload: data.dados,
-        });
-      })
-      .catch(err => console.log(err));
+    const { deputies: { currentDeputy } } = getState();
+
+    if (id === currentDeputy.id) {
+      dispatch({
+        type: GET_DEPUTY_DETAILS_SUCCESS,
+        payload: currentDeputy,
+      });
+    } else {
+      apiClient.get(`/deputados/${id}`)
+        .then(({ data }) => {
+          dispatch({
+            type: GET_DEPUTY_DETAILS_SUCCESS,
+            payload: data.dados,
+          });
+        })
+        .catch(err => console.log(err));
+    }
   };
 }
