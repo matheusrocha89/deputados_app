@@ -48,9 +48,9 @@ export const Root = StackNavigator({
   },
 }, {
   navigationOptions: {
-    headerTintColor: 'white',
+    headerTintColor: '#FFFFFF',
     headerStyle: {
-      backgroundColor: '#598143',
+      backgroundColor: '#008700',
     },
   },
 });
